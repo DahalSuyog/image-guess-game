@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PixelGuess - Gameplay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-tint": "#c0c1ff",
+                "on-background": "#dae2fd",
+                "on-tertiary": "#242f52",
+                "error-container": "#93000a",
+                "surface-variant": "#2d3449",
+                "tertiary-container": "#848fb8",
+                "on-secondary-fixed-variant": "#2f3aa3",
+                "on-error": "#690005",
+                "surface-dim": "#0b1326",
+                "outline-variant": "#464554",
+                "on-secondary-fixed": "#000767",
+                "on-tertiary-fixed": "#0d1a3c",
+                "primary-container": "#8083ff",
+                "on-error-container": "#ffdad6",
+                "surface-container-lowest": "#060e20",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "primary-fixed": "#e1e0ff",
+                "primary": "#c0c1ff",
+                "on-secondary-container": "#a8afff",
+                "surface-container-highest": "#2d3449",
+                "inverse-on-surface": "#283044",
+                "on-primary": "#1000a9",
+                "secondary-container": "#2f3aa3",
+                "on-secondary": "#131e8c",
+                "error": "#ffb4ab",
+                "on-primary-fixed": "#07006c",
+                "on-primary-container": "#0d0096",
+                "background": "#0b1326",
+                "tertiary-fixed": "#dbe1ff",
+                "secondary": "#bdc2ff",
+                "surface": "#0b1326",
+                "on-surface-variant": "#c7c4d7",
+                "on-tertiary-fixed-variant": "#3a456a",
+                "surface-container": "#171f33",
+                "on-surface": "#dae2fd",
+                "surface-container-low": "#131b2e",
+                "tertiary-fixed-dim": "#bac5f0",
+                "tertiary": "#bac5f0",
+                "primary-fixed-dim": "#c0c1ff",
+                "on-tertiary-container": "#1d284b",
+                "secondary-fixed": "#e0e0ff",
+                "inverse-surface": "#dae2fd",
+                "surface-container-high": "#222a3d",
+                "secondary-fixed-dim": "#bdc2ff",
+                "surface-bright": "#31394d",
+                "inverse-primary": "#494bd6",
+                "outline": "#908fa0"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xl": "80px",
+                "md": "24px",
+                "gutter": "24px",
+                "container-max": "600px",
+                "lg": "48px",
+                "xs": "4px",
+                "base": "8px",
+                "sm": "12px"
+        },
+        "fontFamily": {
+                "body-md": ["Inter"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "label-sm": ["JetBrains Mono"],
+                "headline-lg-mobile": ["Plus Jakarta Sans"],
+                "display-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .pixelated {
+            image-rendering: pixelated;
+            width: 32px;
+            height: 32px;
+            transform: scale(20);
+            transform-origin: top left;
+        }
+        .pixel-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            position: relative;
+        }
+        .game-card-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 8px 0px -2px #464554;
+        }
+        .btn-3d {
+            transition: all 0.1s ease;
+            box-shadow: 0 6px 0 0 #494bd6;
+        }
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 0 #494bd6;
+        }
+        .shake-animation {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<header class="w-full top-0 bg-surface border-b border-outline-variant shadow-sm sticky z-50">
+<div class="flex justify-between items-center px-gutter py-base max-w-container-max mx-auto">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-extrabold text-primary">PixelGuess</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Score</span>
+<span class="font-headline-lg-mobile text-primary">1,240</span>
+</div>
+<div class="flex items-center gap-xs bg-primary/10 px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-sm text-label-sm text-primary">12</span>
+</div>
+<div class="flex items-center gap-base">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors">leaderboard</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors">settings</button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl flex flex-col items-center">
+<!-- Chance Indicator -->
+<div class="flex gap-sm mb-lg animate-fade-in">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container text-on-error-container shadow-md">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container text-on-error-container shadow-md">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container text-on-error-container shadow-md">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container text-on-error-container shadow-md">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container text-on-error-container shadow-md">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<!-- Main Game Stage -->
+<section class="w-full relative group">
+<!-- Game Card -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border-2 border-outline-variant game-card-shadow transition-transform duration-300 hover:scale-[1.01]">
+<div class="pixel-container bg-surface-container-high">
+<img alt="Game target image pixelated" class="pixelated select-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPW_HDbzrqemQ3dXZo6FZPohsAI7Equj6Eqn9L8j0l2MLeJkduarIaMJK9AyBOMjKmzSESvWVkuvEZD70WHUwYB8GTsqqF8QzRUxljSzw2rgVKovD9vckTUMnVdiJ6wJiQeMvEDGdHMyq3Sl47WDJWnNHYuDO_clrlquOeCD7gS0BR5Eh2CziIvIlLviVQFJkP5xI_yl7WoBMJTFo7ZWeq92r6_f7zjCvzc-_-Br3HSGEtJgxDDkIFMx92xCQ04riA6hlDibjcYd5t"/>
+<!-- Overlay Grain/Noise for Texture -->
+<div class="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/p6.png')]"></div>
+</div>
+</div>
+<!-- Hint Button (Floating contextual) -->
+<button class="absolute top-4 right-4 bg-surface-container-high/80 backdrop-blur-md border border-outline-variant px-4 py-2 rounded-full flex items-center gap-2 font-label-sm text-label-sm text-on-surface hover:bg-surface-bright transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+                HINT
+            </button>
+</section>
+<!-- Input Section -->
+<section class="w-full mt-lg space-y-md">
+<div class="relative">
+<input class="w-full h-20 bg-surface-container-low border-2 border-outline-variant rounded-xl px-6 font-headline-lg-mobile text-headline-lg-mobile text-on-surface placeholder:text-outline/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all" id="guessInput" placeholder="Enter your guess..." type="text"/>
+</div>
+<button class="w-full h-16 bg-primary text-on-primary font-headline-lg-mobile text-headline-lg-mobile rounded-xl btn-3d flex items-center justify-center gap-base active:bg-primary-container" onclick="handleGuess()">
+                GUESS
+                <span class="material-symbols-outlined text-[28px]">arrow_forward</span>
+</button>
+<p class="text-center font-body-md text-body-md text-on-surface-variant opacity-70">
+                Type the name of what you see in the pixelated image above.
+            </p>
+</section>
+</main>
+<script>
+        function handleGuess() {
+            const input = document.getElementById('guessInput');
+            if (input.value.trim() === "") {
+                input.classList.add('shake-animation');
+                input.classList.add('border-error');
+                setTimeout(() => {
+                    input.classList.remove('shake-animation');
+                    input.classList.remove('border-error');
+                }, 500);
+            } else {
+                // Mock success/failure logic
+                console.log("Guess submitted:", input.value);
+            }
+        }
+
+        // Handle Enter key
+        document.getElementById('guessInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleGuess();
+            }
+        });
+    </script>
+</body></html>

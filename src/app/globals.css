@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+:root {
+  --background: #0b1326;
+  --foreground: #dae2fd;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Pixelated canvas rendering */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Pixel container aspect ratio */
+.pixel-container {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Game card shadow */
+.game-card-shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 8px 0px -2px #464554;
+}
+
+/* 3D button effect */
+.btn-3d {
+  transition: all 0.1s ease;
+  box-shadow: 0 6px 0 0 #494bd6;
+}
+.btn-3d:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 0 #494bd6;
+}
+
+/* Success button */
+.btn-3d-success {
+  transition: all 0.1s ease;
+  box-shadow: 0 6px 0 0 #059669;
+}
+.btn-3d-success:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 0 #059669;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b1326;
+}
+::-webkit-scrollbar-thumb {
+  background: #464554;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #908fa0;
+}
+
+/* Confetti particle */
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  animation: fade-in 0.2s ease-out;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Level indicator transition */
+.level-bar {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(128, 131, 255, 0.3);
+}
