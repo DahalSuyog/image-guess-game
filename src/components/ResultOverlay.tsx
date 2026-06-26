@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { GameState } from '@/lib/types';
-import { IMAGES_PER_SESSION, MAX_REVEALS } from '@/hooks/useGame';
+import { GameState } from '@/domain/types';
+import { IMAGES_PER_SESSION, MAX_REVEALS } from '@/config/game.config';
 
 interface ResultOverlayProps {
   state: GameState;
