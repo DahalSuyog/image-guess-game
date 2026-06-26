@@ -17,16 +17,16 @@ export function Modal({ isOpen, onClose, title, cardClassName = '', children }: 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className={`bg-surface-container rounded-2xl p-6 max-w-md w-full animate-scale-in border border-outline-variant ${cardClassName}`}>
+    <div className="modal-overlay fixed inset-0 bg-background/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className={`bg-surface-container rounded-lg p-6 max-w-md w-full border border-outline-variant ${cardClassName}`}>
         {title !== undefined && (
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="font-headline-lg text-headline-lg-mobile text-on-surface flex items-center gap-2">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="font-headline-lg text-headline-lg-mobile text-on-surface flex items-center gap-2 lowercase">
               {title}
             </h2>
             <button
               onClick={onClose}
-              className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors"
+              className="material-symbols-outlined text-[20px] text-outline hover:text-primary transition-colors"
             >
               close
             </button>

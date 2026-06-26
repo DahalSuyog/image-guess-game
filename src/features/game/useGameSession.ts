@@ -1,37 +1,42 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ImageData, LeaderboardEntry } from '@/domain/types';
+import { ImageData, LeaderboardEntry, User } from '@/domain/types';
 import { repos } from '@/data';
-import { seededShuffle } from '@/lib/shuffle';
-import {
-  getWeeklySeed,
-  getCurrentWeekLabel,
-  getNextResetLabel,
-} from '@/lib/week';
+import { shuffle } from '@/lib/shuffle';
 import { useGame } from './useGame';
 
+const SESSION_ID = 'free-play';
+
+function todayLabel(): string {
+  return new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
+
 /**
- * Orchestrates a full game session: loads the weekly image set, wires the
- * reducer to async persistence (leaderboard + profile), and owns the
- * start / name-prompt flow. Components consume this; they never touch repos.
+ * Orchestrates a free-play session: loads images, drops the player straight
+ * into a game (no gate), supports instant replay, and saves the result to the
+ * leaderboard only when a user is signed in.
  */
-export function useGameSession() {
+export function useGameSession(user: User | null) {
   const { state, init, startGame, guess, useHint, nextImage, revealMore, reset } = useGame();
 
   const [imagePool, setImagePool] = useState<ImageData[]>([]);
-  const [alreadyPlayed, setAlreadyPlayed] = useState(false);
-  const [weeklyLeaderboard, setWeeklyLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [shakeInput, setShakeInput] = useState(false);
-  const [showNameModal, setShowNameModal] = useState(false);
-  const [nameDraft, setNameDraft] = useState('');
+  const [saved, setSaved] = useState(false);
   const recordedRef = useRef(false);
 
-  const refreshLeaderboard = useCallback(async () => {
-    setWeeklyLeaderboard(await repos.leaderboard.getWeekly(getCurrentWeekLabel()));
-  }, []);
+  // Begin a fresh game: reshuffle and auto-start (no ready gate).
+  const begin = useCallback(
+    (pool: ImageData[]) => {
+      recordedRef.current = false;
+      setSaved(false);
+      init(shuffle(pool), SESSION_ID, todayLabel());
+      startGame();
+    },
+    [init, startGame]
+  );
 
-  // Initial load: fetch catalogue, seed the weekly order, hydrate UI state.
+  // Initial load → straight into play.
   useEffect(() => {
     let cancelled = false;
     async function load() {
@@ -39,10 +44,7 @@ export function useGameSession() {
         const data = await repos.images.getImages();
         if (cancelled) return;
         setImagePool(data);
-        const seed = getWeeklySeed();
-        init(seededShuffle(data, seed), seed, getCurrentWeekLabel());
-        setAlreadyPlayed(await repos.profile.hasPlayedThisWeek());
-        await refreshLeaderboard();
+        begin(data);
       } catch (err) {
         console.error('Failed to load game data:', err);
       }
@@ -51,7 +53,7 @@ export function useGameSession() {
     return () => {
       cancelled = true;
     };
-  }, [init, refreshLeaderboard]);
+  }, [begin]);
 
   // Wrong guess: brief shake, then advance the reveal.
   useEffect(() => {
@@ -64,24 +66,23 @@ export function useGameSession() {
     return () => clearTimeout(timer);
   }, [state.phase, revealMore]);
 
-  // Session complete: persist the result exactly once.
+  // Session complete: persist once, only for signed-in users.
   useEffect(() => {
     if (state.phase !== 'complete' || recordedRef.current) return;
     recordedRef.current = true;
+    if (!user) return;
     async function record() {
-      const username = (await repos.profile.getUsername()) || 'Anonymous';
-      await repos.leaderboard.add({
-        username,
+      const entry: LeaderboardEntry = {
+        username: user!.username,
         score: state.score,
         streak: state.maxStreak,
         date: state.weekLabel,
         correctGuesses: state.correctGuesses,
         totalGuesses: state.totalGuesses,
-      });
+      };
+      await repos.leaderboard.add(entry);
       await repos.profile.recordResult({ score: state.score, streak: state.maxStreak });
-      await repos.profile.setPlayedThisWeek();
-      setAlreadyPlayed(true);
-      await refreshLeaderboard();
+      setSaved(true);
     }
     record();
   }, [
@@ -91,52 +92,22 @@ export function useGameSession() {
     state.weekLabel,
     state.correctGuesses,
     state.totalGuesses,
-    refreshLeaderboard,
+    user,
   ]);
 
-  const start = useCallback(async () => {
-    if (alreadyPlayed) return;
-    const username = await repos.profile.getUsername();
-    if (!username) {
-      setNameDraft('');
-      setShowNameModal(true);
-      return;
-    }
-    startGame();
-  }, [alreadyPlayed, startGame]);
-
-  const saveName = useCallback(async () => {
-    await repos.profile.setUsername(nameDraft.trim() || 'Anonymous');
-    setShowNameModal(false);
-    startGame();
-  }, [nameDraft, startGame]);
-
-  const returnHome = useCallback(() => {
-    recordedRef.current = false;
+  const restart = useCallback(() => {
     reset();
-    const seed = getWeeklySeed();
-    init(seededShuffle(imagePool, seed), seed, getCurrentWeekLabel());
-  }, [imagePool, init, reset]);
+    begin(imagePool);
+  }, [imagePool, reset, begin]);
 
   return {
     state,
-    // gameplay actions
     guess,
     useHint,
     nextImage,
-    // ready-screen data
-    alreadyPlayed,
-    weeklyLeaderboard,
-    nextResetLabel: getNextResetLabel(),
-    // start / name-prompt flow
-    start,
-    showNameModal,
-    nameDraft,
-    setNameDraft,
-    saveName,
-    closeNameModal: () => setShowNameModal(false),
-    // misc
     shakeInput,
-    returnHome,
+    restart,
+    isLoggedIn: !!user,
+    saved,
   };
 }

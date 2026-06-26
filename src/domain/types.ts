@@ -63,3 +63,9 @@ export interface ProfileStats {
   bestStreak: number;
   gamesPlayed: number;
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}

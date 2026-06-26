@@ -4,9 +4,9 @@ import { LeaderboardRepository } from './types';
 
 const KEY = 'leaderboard';
 const MAX_STORED = 100;
-const MAX_WEEKLY_SHOWN = 20;
+const DEFAULT_LIMIT = 20;
 
-/** localStorage-backed leaderboard. All entries ever played are stored; reads filter by week. */
+/** localStorage-backed leaderboard of saved results, best (lowest score) first. */
 export class LocalLeaderboardRepository implements LeaderboardRepository {
   private readAll(): LeaderboardEntry[] {
     const raw = safeGet(KEY);
@@ -18,11 +18,10 @@ export class LocalLeaderboardRepository implements LeaderboardRepository {
     }
   }
 
-  async getWeekly(weekLabel: string): Promise<LeaderboardEntry[]> {
+  async getTop(limit = DEFAULT_LIMIT): Promise<LeaderboardEntry[]> {
     return this.readAll()
-      .filter((entry) => entry.date === weekLabel)
       .sort((a, b) => a.score - b.score)
-      .slice(0, MAX_WEEKLY_SHOWN);
+      .slice(0, limit);
   }
 
   async add(entry: LeaderboardEntry): Promise<void> {

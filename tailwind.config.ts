@@ -75,25 +75,28 @@ const config: Config = {
         sm: "12px",
       },
       fontFamily: {
-        "body-md": ["Inter", "sans-serif"],
-        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
-        "label-sm": ["JetBrains Mono", "monospace"],
-        "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+        // Mono-forward, MonkeyType-style: one typeface across the whole UI.
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        "body-md": ["JetBrains Mono", "ui-monospace", "monospace"],
+        "headline-lg": ["JetBrains Mono", "ui-monospace", "monospace"],
+        "label-sm": ["JetBrains Mono", "ui-monospace", "monospace"],
+        "display-lg": ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+        // Calm, restrained scale — minimal contrast between levels.
+        "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
         "headline-lg": [
-          "32px",
-          { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700" },
+          "22px",
+          { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "600" },
         ],
-        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }],
+        "headline-lg-mobile": ["18px", { lineHeight: "26px", fontWeight: "600" }],
         "label-sm": [
           "12px",
-          { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" },
+          { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "500" },
         ],
         "display-lg": [
-          "48px",
-          { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" },
+          "30px",
+          { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "600" },
         ],
       },
       keyframes: {

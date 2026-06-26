@@ -1,20 +1,9 @@
-/**
- * Deterministic shuffle using a seed string.
- * Uses a simple hash-based PRNG for repeatable results, so every player gets
- * the same image order for a given week.
- */
-export function seededShuffle<T>(array: T[], seed: string): T[] {
+/** Plain random Fisher–Yates shuffle, for free-play sessions where order should vary. */
+export function shuffle<T>(array: T[]): T[] {
   const result = [...array];
-  let hash = 0;
-  for (let i = 0; i < seed.length; i++) {
-    hash = ((hash << 5) - hash + seed.charCodeAt(i)) | 0;
-  }
-
   for (let i = result.length - 1; i > 0; i--) {
-    hash = ((hash << 5) - hash + i) | 0;
-    const j = Math.abs(hash) % (i + 1);
+    const j = Math.floor(Math.random() * (i + 1));
     [result[i], result[j]] = [result[j], result[i]];
   }
-
   return result;
 }

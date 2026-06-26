@@ -14,7 +14,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* Pixelated canvas rendering */
@@ -32,29 +32,15 @@ body {
   position: relative;
 }
 
-/* Game card shadow */
-.game-card-shadow {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 8px 0px -2px #464554;
+/* Minimal focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid #c0c1ff;
+  outline-offset: 2px;
 }
 
-/* 3D button effect */
-.btn-3d {
-  transition: all 0.1s ease;
-  box-shadow: 0 6px 0 0 #494bd6;
-}
-.btn-3d:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 0 #494bd6;
-}
-
-/* Success button */
-.btn-3d-success {
-  transition: all 0.1s ease;
-  box-shadow: 0 6px 0 0 #059669;
-}
-.btn-3d-success:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 0 #059669;
+/* Subtle reveal-progress transition */
+.level-bar {
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Scrollbar styling */
@@ -62,39 +48,26 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b1326;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #464554;
+  background: #2d3449;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #908fa0;
+  background: #464554;
 }
 
-/* Confetti particle */
-.confetti-particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-}
-
-/* Modal overlay */
+/* Modal overlay fade */
 .modal-overlay {
-  animation: fade-in 0.2s ease-out;
+  animation: overlay-fade 0.15s ease-out;
 }
-@keyframes fade-in {
+@keyframes overlay-fade {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Level indicator transition */
-.level-bar {
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Selection highlight */
 ::selection {
-  background: rgba(128, 131, 255, 0.3);
+  background: rgba(192, 193, 255, 0.25);
 }

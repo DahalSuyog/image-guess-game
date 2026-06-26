@@ -1,18 +1,9 @@
 import { ProfileStats } from '@/domain/types';
 import { safeGet, safeSet } from '@/data/storage';
-import { getCurrentWeekId } from '@/lib/week';
 import { ProfileRepository } from './types';
 
-/** localStorage-backed player profile: identity, all-time stats, and weekly play-lock. */
+/** localStorage-backed player profile: all-time bests and totals. */
 export class LocalProfileRepository implements ProfileRepository {
-  async getUsername(): Promise<string> {
-    return safeGet('username') || '';
-  }
-
-  async setUsername(name: string): Promise<void> {
-    safeSet('username', name);
-  }
-
   async getStats(): Promise<ProfileStats> {
     return {
       bestScore: this.readInt('bestScore'),
@@ -34,14 +25,6 @@ export class LocalProfileRepository implements ProfileRepository {
     }
 
     safeSet('totalGamesPlayed', (this.readInt('totalGamesPlayed') + 1).toString());
-  }
-
-  async hasPlayedThisWeek(): Promise<boolean> {
-    return safeGet('lastPlayedWeek') === getCurrentWeekId();
-  }
-
-  async setPlayedThisWeek(): Promise<void> {
-    safeSet('lastPlayedWeek', getCurrentWeekId());
   }
 
   private readInt(key: string): number {
