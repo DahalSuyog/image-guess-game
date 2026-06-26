@@ -25,7 +25,7 @@ export interface ImageResult {
 export interface GameState {
   phase: GamePhase;
   currentImageIndex: number;
-  currentLevel: number; // 1 (most pixelated) to 10 (clear)
+  currentLevel: number; // 1 (most pixelated) to maxLevel (clear)
   revealsUsed: number;
   score: number;
   streak: number;
@@ -58,11 +58,8 @@ export interface LeaderboardEntry {
   totalGuesses: number;
 }
 
-export interface StorageData {
-  pixelpeel_username: string;
-  pixelpeel_leaderboard: LeaderboardEntry[];
-  pixelpeel_lastPlayedWeek: string;
-  pixelpeel_bestScore: number;
-  pixelpeel_bestStreak: number;
-  pixelpeel_totalGamesPlayed: number;
+export interface ProfileStats {
+  bestScore: number;
+  bestStreak: number;
+  gamesPlayed: number;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { MAX_REVEALS } from '@/hooks/useGame';
+import { MAX_REVEALS } from '@/config/game.config';
 
 interface ChanceIndicatorProps {
   revealsUsed: number;
