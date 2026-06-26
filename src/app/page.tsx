@@ -29,7 +29,7 @@ export default function Home() {
         onSignOut={signOut}
       />
 
-      <main className="flex-1 w-full flex flex-col items-center justify-center gap-6 px-gutter py-md">
+      <main className="flex-1 w-full flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-6 px-4 sm:px-gutter py-6 sm:py-md">
         <CategoryBar
           categories={session.categories}
           active={session.category}

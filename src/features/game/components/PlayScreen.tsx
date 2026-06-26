@@ -18,7 +18,7 @@ export function PlayScreen({ state, shakeInput, onGuess, onUseHint }: PlayScreen
   const imageSrc = currentImage ? imageUrl(currentImage.filename) : '';
 
   return (
-    <div className="w-full max-w-[480px] flex flex-col items-center gap-5">
+    <div className="w-full max-w-[480px] lg:max-w-[540px] flex flex-col items-center gap-4 sm:gap-5">
       {/* Minimal status line */}
       <div className="w-full flex items-center justify-between font-label-sm text-label-sm text-outline">
         <span>
