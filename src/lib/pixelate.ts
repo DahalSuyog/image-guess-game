@@ -50,7 +50,9 @@ export function generatePixelationLevels(
 export function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    // No crossOrigin: we only draw/scale the image (never read pixels), so a
+    // tainted canvas is fine — and this avoids load failures on hosts that
+    // don't send CORS headers for remote image sources.
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = src;

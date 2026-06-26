@@ -23,6 +23,9 @@ export const GAME_CONFIG: GameConfig = {
   imageBasePath: '/images/game',
 };
 
+/** Default image category for a new session — the local curated set. */
+export const DEFAULT_CATEGORY = 'landmarks';
+
 /**
  * Back-compat named exports. Several components historically imported these
  * from `@/hooks/useGame`; they now resolve to the central config.
@@ -30,7 +33,8 @@ export const GAME_CONFIG: GameConfig = {
 export const MAX_REVEALS = GAME_CONFIG.maxReveals;
 export const IMAGES_PER_SESSION = GAME_CONFIG.imagesPerSession;
 
-/** Resolve the public URL for a game image filename. */
+/** Resolve the displayable URL for an image. Absolute URLs (remote sources) pass through. */
 export function imageUrl(filename: string): string {
+  if (/^https?:\/\//.test(filename)) return filename;
   return `${GAME_CONFIG.imageBasePath}/${filename}`;
 }

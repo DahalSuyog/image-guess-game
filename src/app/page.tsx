@@ -6,6 +6,7 @@ import { ResultOverlay } from '@/components/ResultOverlay';
 import { useAuth } from '@/features/auth/useAuth';
 import { useGameSession } from '@/features/game/useGameSession';
 import { PlayScreen } from '@/features/game/components/PlayScreen';
+import { CategoryBar } from '@/features/game/components/CategoryBar';
 import { LeaderboardModal } from '@/features/leaderboard/LeaderboardModal';
 import { SettingsModal } from '@/features/settings/SettingsModal';
 
@@ -28,7 +29,12 @@ export default function Home() {
         onSignOut={signOut}
       />
 
-      <main className="flex-1 w-full flex flex-col items-center justify-center px-gutter py-md">
+      <main className="flex-1 w-full flex flex-col items-center justify-center gap-6 px-gutter py-md">
+        <CategoryBar
+          categories={session.categories}
+          active={session.category}
+          onSelect={session.selectCategory}
+        />
         {state.phase === 'loading' ? (
           <p className="font-label-sm text-label-sm text-outline animate-pulse">loading…</p>
         ) : (

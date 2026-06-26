@@ -1,12 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ImageData, LeaderboardEntry, User } from '@/domain/types';
+import { LeaderboardEntry, User } from '@/domain/types';
 import { repos } from '@/data';
-import { shuffle } from '@/lib/shuffle';
+import { DEFAULT_CATEGORY, GAME_CONFIG } from '@/config/game.config';
 import { useGame } from './useGame';
-
-const SESSION_ID = 'free-play';
 
 function todayLabel(): string {
   return new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
@@ -20,40 +18,50 @@ function todayLabel(): string {
 export function useGameSession(user: User | null) {
   const { state, init, startGame, guess, useHint, nextImage, revealMore, reset } = useGame();
 
-  const [imagePool, setImagePool] = useState<ImageData[]>([]);
   const [shakeInput, setShakeInput] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [category, setCategoryState] = useState(DEFAULT_CATEGORY);
   const recordedRef = useRef(false);
+  const runRef = useRef(0);
+  const categoryRef = useRef(DEFAULT_CATEGORY);
 
-  // Begin a fresh game: reshuffle and auto-start (no ready gate).
-  const begin = useCallback(
-    (pool: ImageData[]) => {
-      recordedRef.current = false;
-      setSaved(false);
-      init(shuffle(pool), SESSION_ID, todayLabel());
+  const categories = repos.images.listCategories();
+
+  // Fetch a fresh set of images for the current category, then drop straight
+  // into play. Each call pulls new images, so every replay is a new game.
+  const begin = useCallback(async () => {
+    const run = ++runRef.current;
+    recordedRef.current = false;
+    setSaved(false);
+    reset(); // show loading while we fetch
+    try {
+      const images = await repos.images.getImages({
+        category: categoryRef.current,
+        count: GAME_CONFIG.imagesPerSession,
+      });
+      if (run !== runRef.current) return; // a newer begin() superseded this one
+      init(images, categoryRef.current, todayLabel());
       startGame();
-    },
-    [init, startGame]
-  );
-
-  // Initial load → straight into play.
-  useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try {
-        const data = await repos.images.getImages();
-        if (cancelled) return;
-        setImagePool(data);
-        begin(data);
-      } catch (err) {
-        console.error('Failed to load game data:', err);
-      }
+    } catch (err) {
+      console.error('Failed to load images:', err);
     }
-    load();
-    return () => {
-      cancelled = true;
-    };
+  }, [init, startGame, reset]);
+
+  // Start the first game on mount.
+  useEffect(() => {
+    begin();
   }, [begin]);
+
+  // Switch category and immediately start a new game from it.
+  const selectCategory = useCallback(
+    (key: string) => {
+      if (key === categoryRef.current) return;
+      categoryRef.current = key;
+      setCategoryState(key);
+      begin();
+    },
+    [begin]
+  );
 
   // Wrong guess: brief shake, then advance the reveal.
   useEffect(() => {
@@ -96,9 +104,8 @@ export function useGameSession(user: User | null) {
   ]);
 
   const restart = useCallback(() => {
-    reset();
-    begin(imagePool);
-  }, [imagePool, reset, begin]);
+    begin();
+  }, [begin]);
 
   return {
     state,
@@ -109,5 +116,8 @@ export function useGameSession(user: User | null) {
     restart,
     isLoggedIn: !!user,
     saved,
+    categories,
+    category,
+    selectCategory,
   };
 }
