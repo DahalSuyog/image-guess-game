@@ -1,0 +1,50 @@
+[
+  {
+    "id": "eiffel-tower",
+    "name": "Eiffel Tower",
+    "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80",
+    "location": "Paris, France"
+  },
+  {
+    "id": "colosseum",
+    "name": "Colosseum",
+    "imageUrl": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80",
+    "location": "Rome, Italy"
+  },
+  {
+    "id": "statue-of-liberty",
+    "name": "Statue of Liberty",
+    "imageUrl": "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    "location": "New York, USA"
+  },
+  {
+    "id": "taj-mahal",
+    "name": "Taj Mahal",
+    "imageUrl": "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80",
+    "location": "Agra, India"
+  },
+  {
+    "id": "machu-picchu",
+    "name": "Machu Picchu",
+    "imageUrl": "https://images.unsplash.com/photo-1587542513982-520e588494b8?auto=format&fit=crop&w=600&q=80",
+    "location": "Cusco, Peru"
+  },
+  {
+    "id": "great-wall-china",
+    "name": "Great Wall of China",
+    "imageUrl": "https://images.unsplash.com/photo-1508804185872-d7bab400b015?auto=format&fit=crop&w=600&q=80",
+    "location": "Beijing, China"
+  },
+  {
+    "id": "pyramids-giza",
+    "name": "Pyramids of Giza",
+    "imageUrl": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=600&q=80",
+    "location": "Cairo, Egypt"
+  },
+  {
+    "id": "sydney-opera-house",
+    "name": "Sydney Opera House",
+    "imageUrl": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=600&q=80",
+    "location": "Sydney, Australia"
+  }
+]

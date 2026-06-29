@@ -2,17 +2,37 @@ import { ImageData } from '@/domain/types';
 import { shuffle } from '@/lib/shuffle';
 import { ImageProvider } from './types';
 
-/** The original curated set, served from the static JSON in /public. */
+// Points directly to the file in your public directory
+const LANDMARKS_DATA_URL = '/data/landmarks.json';
+
+interface LandmarkItem {
+  id: string;
+  name: string;
+  imageUrl: string;
+  location: string;
+}
+
+/** World landmarks + names fetched locally for absolute stability. */
 export class LandmarksProvider implements ImageProvider {
   readonly category = 'landmarks';
   readonly label = 'landmarks';
 
-  constructor(private readonly url = '/data/images.json') {}
-
   async fetch(count: number): Promise<ImageData[]> {
-    const res = await fetch(this.url);
+    const res = await fetch(LANDMARKS_DATA_URL);
     if (!res.ok) throw new Error(`Failed to load landmarks: ${res.status}`);
-    const all = (await res.json()) as ImageData[];
-    return shuffle(all).slice(0, count);
+    
+    const landmarks = (await res.json()) as LandmarkItem[];
+
+    // Shuffle the array instantly and take only the requested amount
+    return shuffle(landmarks)
+      .slice(0, count)
+      .map((landmark) => ({
+        id: `landmark-${landmark.id}`,
+        filename: landmark.imageUrl,
+        answers: [landmark.name], // Expected exact text string for validation
+        category: 'landmarks',
+        difficulty: 'medium',
+        hint: `This famous landmark is located in ${landmark.location}`,
+      }));
   }
 }
