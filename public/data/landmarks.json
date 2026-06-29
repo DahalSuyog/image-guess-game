@@ -14,7 +14,7 @@
   {
     "id": "statue-of-liberty",
     "name": "Statue of Liberty",
-    "imageUrl": "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1588384153148-ebd739ac430c?auto=format&fit=crop&w=600&q=80",
     "location": "New York, USA"
   },
   {
@@ -26,13 +26,13 @@
   {
     "id": "machu-picchu",
     "name": "Machu Picchu",
-    "imageUrl": "https://images.unsplash.com/photo-1587542513982-520e588494b8?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=600&q=80",
     "location": "Cusco, Peru"
   },
   {
     "id": "great-wall-china",
     "name": "Great Wall of China",
-    "imageUrl": "https://images.unsplash.com/photo-1508804185872-d7bab400b015?auto=format&fit=crop&w=600&q=80",
+    "imageUrl": "https://images.unsplash.com/photo-1608037521277-154cd1b89191?auto=format&fit=crop&w=600&q=80",
     "location": "Beijing, China"
   },
   {
