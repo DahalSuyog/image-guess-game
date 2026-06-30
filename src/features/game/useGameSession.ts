@@ -16,7 +16,7 @@ function todayLabel(): string {
  * leaderboard only when a user is signed in.
  */
 export function useGameSession(user: User | null) {
-  const { state, init, startGame, guess, useHint, nextImage, revealMore, reset } = useGame();
+  const { state, init, startGame, guess, useHint, skip, nextImage, revealMore, reset } = useGame();
 
   const [shakeInput, setShakeInput] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -111,6 +111,7 @@ export function useGameSession(user: User | null) {
     state,
     guess,
     useHint,
+    skip,
     nextImage,
     shakeInput,
     restart,

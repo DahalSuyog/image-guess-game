@@ -14,6 +14,7 @@ export type GamePhase =
   | 'correct'
   | 'wrong'
   | 'gameover'
+  | 'skipped'
   | 'complete';
 
 export interface ImageResult {
@@ -46,6 +47,7 @@ export type GameAction =
   | { type: 'GUESS'; answer: string }
   | { type: 'REVEAL_MORE' }
   | { type: 'USE_HINT' }
+  | { type: 'SKIP' }
   | { type: 'NEXT_IMAGE' }
   | { type: 'RESET' };
 

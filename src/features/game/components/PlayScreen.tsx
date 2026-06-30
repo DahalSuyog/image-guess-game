@@ -11,9 +11,10 @@ interface PlayScreenProps {
   shakeInput: boolean;
   onGuess: (answer: string) => void;
   onUseHint: () => void;
+  onSkip: () => void;
 }
 
-export function PlayScreen({ state, shakeInput, onGuess, onUseHint }: PlayScreenProps) {
+export function PlayScreen({ state, shakeInput, onGuess, onUseHint, onSkip }: PlayScreenProps) {
   const currentImage = state.images[state.currentImageIndex];
   const imageSrc = currentImage ? imageUrl(currentImage.filename) : '';
 
@@ -60,6 +61,14 @@ export function PlayScreen({ state, shakeInput, onGuess, onUseHint }: PlayScreen
       </div>
 
       <GuessInput onGuess={onGuess} disabled={state.phase !== 'playing'} shake={shakeInput} />
+
+      <button
+        onClick={onSkip}
+        disabled={state.phase !== 'playing'}
+        className="font-label-sm text-label-sm text-outline hover:text-on-surface-variant transition-colors disabled:opacity-40 disabled:hover:text-outline"
+      >
+        skip this one
+      </button>
     </div>
   );
 }

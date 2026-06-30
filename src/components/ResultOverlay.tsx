@@ -37,13 +37,16 @@ export function ResultOverlay({ state, onNext, onRestart, currentAnswer, isLogge
   const [copied, setCopied] = useState(false);
   const isLast = state.currentImageIndex + 1 >= IMAGES_PER_SESSION;
 
-  if (state.phase === 'correct' || state.phase === 'gameover') {
+  if (state.phase === 'correct' || state.phase === 'gameover' || state.phase === 'skipped') {
     const correct = state.phase === 'correct';
+    const skipped = state.phase === 'skipped';
+    const statusLabel = correct ? 'correct' : skipped ? 'skipped' : 'out of reveals';
+    const statusColor = correct ? 'text-success' : skipped ? 'text-outline' : 'text-error';
     return (
       <div className={overlayClass}>
         <div className={cardClass}>
-          <p className={`font-label-sm text-label-sm uppercase tracking-[0.2em] ${correct ? 'text-success' : 'text-error'}`}>
-            {correct ? 'correct' : 'out of reveals'}
+          <p className={`font-label-sm text-label-sm uppercase tracking-[0.2em] ${statusColor}`}>
+            {statusLabel}
           </p>
           <p className="font-headline-lg text-headline-lg text-on-surface">{currentAnswer}</p>
           <p className="font-label-sm text-label-sm text-outline">

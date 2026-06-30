@@ -43,6 +43,7 @@ export default function Home() {
             shakeInput={session.shakeInput}
             onGuess={session.guess}
             onUseHint={session.useHint}
+            onSkip={session.skip}
           />
         )}
       </main>

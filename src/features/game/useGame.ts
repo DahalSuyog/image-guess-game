@@ -19,8 +19,9 @@ export function useGame() {
   const guess = useCallback((answer: string) => dispatch({ type: 'GUESS', answer }), []);
   const revealMore = useCallback(() => dispatch({ type: 'REVEAL_MORE' }), []);
   const useHint = useCallback(() => dispatch({ type: 'USE_HINT' }), []);
+  const skip = useCallback(() => dispatch({ type: 'SKIP' }), []);
   const nextImage = useCallback(() => dispatch({ type: 'NEXT_IMAGE' }), []);
   const reset = useCallback(() => dispatch({ type: 'RESET' }), []);
 
-  return { state, init, startGame, guess, revealMore, useHint, nextImage, reset };
+  return { state, init, startGame, guess, revealMore, useHint, skip, nextImage, reset };
 }

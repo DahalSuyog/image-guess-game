@@ -127,6 +127,25 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       };
     }
 
+    case 'SKIP': {
+      if (state.phase !== 'playing') return state;
+
+      const currentImage = state.images[state.currentImageIndex];
+      if (!currentImage) return state;
+
+      return {
+        ...state,
+        phase: 'skipped',
+        revealsUsed: maxReveals,
+        currentLevel: maxLevel,
+        streak: 0,
+        results: [
+          ...state.results,
+          { image: currentImage, score: maxReveals, revealsUsed: maxReveals },
+        ],
+      };
+    }
+
     case 'NEXT_IMAGE': {
       const nextIndex = state.currentImageIndex + 1;
       if (nextIndex >= state.images.length) {
