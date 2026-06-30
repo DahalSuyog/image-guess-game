@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { GameState } from '@/domain/types';
-import { IMAGES_PER_SESSION, MAX_REVEALS } from '@/config/game.config';
+import { IMAGES_PER_SESSION, MAX_REVEALS, imageUrl } from '@/config/game.config';
 
 interface ResultOverlayProps {
   state: GameState;
@@ -42,9 +42,20 @@ export function ResultOverlay({ state, onNext, onRestart, currentAnswer, isLogge
     const skipped = state.phase === 'skipped';
     const statusLabel = correct ? 'correct' : skipped ? 'skipped' : 'out of reveals';
     const statusColor = correct ? 'text-success' : skipped ? 'text-outline' : 'text-error';
+    const currentImage = state.images[state.currentImageIndex];
     return (
       <div className={overlayClass}>
         <div className={cardClass}>
+          {/* Image on top */}
+          {currentImage && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageUrl(currentImage.filename)}
+              alt={currentAnswer}
+              className="w-full aspect-[4/3] rounded-md object-cover border border-outline-variant"
+            />
+          )}
+          {/* Result below */}
           <p className={`font-label-sm text-label-sm uppercase tracking-[0.2em] ${statusColor}`}>
             {statusLabel}
           </p>
@@ -70,13 +81,19 @@ export function ResultOverlay({ state, onNext, onRestart, currentAnswer, isLogge
             <p className="font-display-lg text-display-lg text-primary">{state.score}/50</p>
           </div>
 
-          <div className="space-y-1.5 text-left">
+          <div className="space-y-2 text-left">
             {state.results.map((result, index) => (
-              <div key={result.image.id} className="flex items-center justify-between font-label-sm text-label-sm">
-                <span className="text-on-surface-variant truncate">
+              <div key={result.image.id} className="flex items-center gap-3 font-label-sm text-label-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imageUrl(result.image.filename)}
+                  alt={result.image.answers[0]}
+                  className="w-10 h-10 rounded object-cover border border-outline-variant flex-shrink-0"
+                />
+                <span className="text-on-surface-variant truncate flex-1">
                   {index + 1}. {result.image.answers[0]}
                 </span>
-                <span className="text-outline">{scoreToEmoji(result.score)} {result.score}</span>
+                <span className="text-outline flex-shrink-0">{scoreToEmoji(result.score)} {result.score}</span>
               </div>
             ))}
           </div>
