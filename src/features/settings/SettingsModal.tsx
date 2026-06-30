@@ -19,7 +19,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           <li>· 5 images per session</li>
           <li>· 10 reveals per image</li>
           <li>· press enter to submit a guess</li>
-          <li>· log in to save your results</li>
         </ul>
       </div>
     </Modal>

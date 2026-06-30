@@ -6,7 +6,6 @@ import { LandmarksProvider } from './images/providers/landmarksProvider';
 import { FlagsProvider } from './images/providers/flagsProvider';
 import { LocalLeaderboardRepository } from './repositories/localLeaderboardRepository';
 import { LocalProfileRepository } from './repositories/localProfileRepository';
-import { LocalAuthRepository } from './repositories/localAuthRepository';
 
 /**
  * Composition root for the data layer. To move to a real backend, swap these
@@ -22,7 +21,6 @@ function createRepositories(): Repositories {
     ),
     leaderboard: new LocalLeaderboardRepository(),
     profile: new LocalProfileRepository(),
-    auth: new LocalAuthRepository(),
   };
 }
 

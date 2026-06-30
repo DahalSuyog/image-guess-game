@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { ResultOverlay } from '@/components/ResultOverlay';
-import { useAuth } from '@/features/auth/useAuth';
 import { useGameSession } from '@/features/game/useGameSession';
 import { PlayScreen } from '@/features/game/components/PlayScreen';
 import { CategoryBar } from '@/features/game/components/CategoryBar';
@@ -11,8 +10,7 @@ import { LeaderboardModal } from '@/features/leaderboard/LeaderboardModal';
 import { SettingsModal } from '@/features/settings/SettingsModal';
 
 export default function Home() {
-  const { user, signOut } = useAuth();
-  const session = useGameSession(user);
+  const session = useGameSession();
   const { state } = session;
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -23,10 +21,8 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background">
       <Header
         score={state.score}
-        user={user}
         onLeaderboard={() => setShowLeaderboard(true)}
         onSettings={() => setShowSettings(true)}
-        onSignOut={signOut}
       />
 
       <main className="flex-1 w-full flex flex-col items-center justify-start sm:justify-center gap-5 sm:gap-6 px-4 sm:px-gutter py-6 sm:py-md">
@@ -53,8 +49,6 @@ export default function Home() {
         onNext={session.nextImage}
         onRestart={session.restart}
         currentAnswer={currentImage?.answers[0] || ''}
-        isLoggedIn={session.isLoggedIn}
-        saved={session.saved}
       />
       <LeaderboardModal isOpen={showLeaderboard} onClose={() => setShowLeaderboard(false)} />
       <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />

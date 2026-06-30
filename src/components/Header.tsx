@@ -1,17 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { User } from '@/domain/types';
 
 interface HeaderProps {
   score: number;
-  user: User | null;
   onLeaderboard: () => void;
   onSettings: () => void;
-  onSignOut: () => void;
 }
 
-export function Header({ score, user, onLeaderboard, onSettings, onSignOut }: HeaderProps) {
+export function Header({ score, onLeaderboard, onSettings }: HeaderProps) {
   const iconBtn =
     'material-symbols-outlined text-[20px] text-on-surface-variant hover:text-primary transition-colors shrink-0 p-1.5 -m-1.5';
 
@@ -37,27 +34,6 @@ export function Header({ score, user, onLeaderboard, onSettings, onSignOut }: He
           <button onClick={onSettings} className={iconBtn} aria-label="Settings">
             settings
           </button>
-
-          {user ? (
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="font-label-sm text-label-sm text-on-surface-variant truncate max-w-[72px] sm:max-w-[140px]">
-                {user.username}
-              </span>
-              <button
-                onClick={onSignOut}
-                className="font-label-sm text-label-sm text-outline hover:text-primary transition-colors shrink-0"
-              >
-                logout
-              </button>
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors shrink-0"
-            >
-              login
-            </Link>
-          )}
         </div>
       </div>
     </header>
