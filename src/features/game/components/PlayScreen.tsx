@@ -40,17 +40,25 @@ export function PlayScreen({ state, shakeInput, onGuess, onUseHint, onSkip }: Pl
         {imageSrc && <GameCanvas imageSrc={imageSrc} level={state.currentLevel} />}
 
         {state.phase === 'playing' && (
-          <button
-            onClick={onUseHint}
-            disabled={hintsLeft <= 0}
-            className={`absolute top-2 right-2 px-2 py-1 rounded font-label-sm text-label-sm transition-colors
-              ${hintsLeft <= 0
-                ? 'text-amber/70 cursor-default'
-                : 'text-on-surface-variant hover:text-amber bg-background/40 backdrop-blur-sm'
-              }`}
-          >
-            {hintsLeft <= 0 ? 'no more hints' : state.hintsUsed === 0 ? 'hint' : `hint · ${hintsLeft} left`}
-          </button>
+          <>
+            <button
+              onClick={onSkip}
+              className="absolute top-2 left-2 px-2 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-error bg-background/40 backdrop-blur-sm transition-colors"
+            >
+              i give up
+            </button>
+            <button
+              onClick={onUseHint}
+              disabled={hintsLeft <= 0}
+              className={`absolute top-2 right-2 px-2 py-1 rounded font-label-sm text-label-sm transition-colors
+                ${hintsLeft <= 0
+                  ? 'text-amber/70 cursor-default'
+                  : 'text-on-surface-variant hover:text-amber bg-background/40 backdrop-blur-sm'
+                }`}
+            >
+              {hintsLeft <= 0 ? 'no more hints' : state.hintsUsed === 0 ? 'hint' : `hint · ${hintsLeft} left`}
+            </button>
+          </>
         )}
       </div>
 
@@ -65,14 +73,6 @@ export function PlayScreen({ state, shakeInput, onGuess, onUseHint, onSkip }: Pl
       </div>
 
       <GuessInput onGuess={onGuess} disabled={state.phase !== 'playing'} shake={shakeInput} />
-
-      <button
-        onClick={onSkip}
-        disabled={state.phase !== 'playing'}
-        className="font-label-sm text-label-sm text-outline hover:text-on-surface-variant transition-colors disabled:opacity-40 disabled:hover:text-outline"
-      >
-        skip this one
-      </button>
     </div>
   );
 }
