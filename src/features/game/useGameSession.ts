@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { track } from '@vercel/analytics';
 import { LeaderboardEntry, User } from '@/domain/types';
 import { repos } from '@/data';
 import { DEFAULT_CATEGORY, GAME_CONFIG } from '@/config/game.config';
@@ -56,6 +57,7 @@ export function useGameSession(user: User | null) {
   const selectCategory = useCallback(
     (key: string) => {
       if (key === categoryRef.current) return;
+      track('category_select', { category: key });
       categoryRef.current = key;
       setCategoryState(key);
       begin();
@@ -74,10 +76,18 @@ export function useGameSession(user: User | null) {
     return () => clearTimeout(timer);
   }, [state.phase, revealMore]);
 
-  // Session complete: persist once, only for signed-in users.
+  // Session complete: report the result once, then persist for signed-in users.
   useEffect(() => {
     if (state.phase !== 'complete' || recordedRef.current) return;
     recordedRef.current = true;
+    track('game_complete', {
+      category: categoryRef.current,
+      score: state.score,
+      correctGuesses: state.correctGuesses,
+      totalGuesses: state.totalGuesses,
+      maxStreak: state.maxStreak,
+      signedIn: !!user,
+    });
     if (!user) return;
     async function record() {
       const entry: LeaderboardEntry = {
@@ -107,11 +117,17 @@ export function useGameSession(user: User | null) {
     begin();
   }, [begin]);
 
+  // Give up on the current image: report it, then skip.
+  const giveUp = useCallback(() => {
+    track('give_up', { category: categoryRef.current, revealsUsed: state.revealsUsed });
+    skip();
+  }, [skip, state.revealsUsed]);
+
   return {
     state,
     guess,
     useHint,
-    skip,
+    skip: giveUp,
     nextImage,
     shakeInput,
     restart,
