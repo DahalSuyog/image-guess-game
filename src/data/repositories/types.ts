@@ -1,4 +1,4 @@
-import { ImageData, LeaderboardEntry, ProfileStats, User } from '@/domain/types';
+import { ImageData, LeaderboardEntry, ProfileStats } from '@/domain/types';
 
 /**
  * Data-access contracts. Methods are async so that the current localStorage-backed
@@ -30,14 +30,6 @@ export interface LeaderboardRepository {
   add(entry: LeaderboardEntry): Promise<void>;
 }
 
-export interface AuthRepository {
-  /** The currently signed-in user, or null for a guest. */
-  getCurrentUser(): Promise<User | null>;
-  /** Dummy sign-in: accepts any credentials and persists a fake session. */
-  signIn(email: string, password: string): Promise<User>;
-  signOut(): Promise<void>;
-}
-
 export interface ProfileRepository {
   getStats(): Promise<ProfileStats>;
   /** Record a finished session against the player's all-time bests + totals. */
@@ -48,5 +40,4 @@ export interface Repositories {
   images: ImagesRepository;
   leaderboard: LeaderboardRepository;
   profile: ProfileRepository;
-  auth: AuthRepository;
 }

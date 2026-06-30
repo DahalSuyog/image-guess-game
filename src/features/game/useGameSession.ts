@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
-import { LeaderboardEntry, User } from '@/domain/types';
 import { repos } from '@/data';
 import { DEFAULT_CATEGORY, GAME_CONFIG } from '@/config/game.config';
 import { useGame } from './useGame';
@@ -13,16 +12,14 @@ function todayLabel(): string {
 
 /**
  * Orchestrates a free-play session: loads images, drops the player straight
- * into a game (no gate), supports instant replay, and saves the result to the
- * leaderboard only when a user is signed in.
+ * into a game (no gate), and supports instant replay.
  */
-export function useGameSession(user: User | null) {
+export function useGameSession() {
   const { state, init, startGame, guess, useHint, skip, nextImage, revealMore, reset } = useGame();
 
   const [shakeInput, setShakeInput] = useState(false);
-  const [saved, setSaved] = useState(false);
   const [category, setCategoryState] = useState(DEFAULT_CATEGORY);
-  const recordedRef = useRef(false);
+  const trackedRef = useRef(false);
   const runRef = useRef(0);
   const categoryRef = useRef(DEFAULT_CATEGORY);
 
@@ -32,8 +29,7 @@ export function useGameSession(user: User | null) {
   // into play. Each call pulls new images, so every replay is a new game.
   const begin = useCallback(async () => {
     const run = ++runRef.current;
-    recordedRef.current = false;
-    setSaved(false);
+    trackedRef.current = false;
     reset(); // show loading while we fetch
     try {
       const images = await repos.images.getImages({
@@ -76,41 +72,23 @@ export function useGameSession(user: User | null) {
     return () => clearTimeout(timer);
   }, [state.phase, revealMore]);
 
-  // Session complete: report the result once, then persist for signed-in users.
+  // Session complete: report the result to analytics once.
   useEffect(() => {
-    if (state.phase !== 'complete' || recordedRef.current) return;
-    recordedRef.current = true;
+    if (state.phase !== 'complete' || trackedRef.current) return;
+    trackedRef.current = true;
     track('game_complete', {
       category: categoryRef.current,
       score: state.score,
       correctGuesses: state.correctGuesses,
       totalGuesses: state.totalGuesses,
       maxStreak: state.maxStreak,
-      signedIn: !!user,
     });
-    if (!user) return;
-    async function record() {
-      const entry: LeaderboardEntry = {
-        username: user!.username,
-        score: state.score,
-        streak: state.maxStreak,
-        date: state.weekLabel,
-        correctGuesses: state.correctGuesses,
-        totalGuesses: state.totalGuesses,
-      };
-      await repos.leaderboard.add(entry);
-      await repos.profile.recordResult({ score: state.score, streak: state.maxStreak });
-      setSaved(true);
-    }
-    record();
   }, [
     state.phase,
     state.score,
     state.maxStreak,
-    state.weekLabel,
     state.correctGuesses,
     state.totalGuesses,
-    user,
   ]);
 
   const restart = useCallback(() => {
@@ -131,8 +109,6 @@ export function useGameSession(user: User | null) {
     nextImage,
     shakeInput,
     restart,
-    isLoggedIn: !!user,
-    saved,
     categories,
     category,
     selectCategory,

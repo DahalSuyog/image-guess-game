@@ -46,7 +46,7 @@ export function LeaderboardModal({ isOpen, onClose }: LeaderboardModalProps) {
       <div className="overflow-y-auto max-h-[50vh]">
         {entries.length === 0 ? (
           <p className="font-body-md text-body-md text-outline text-center py-8">
-            no scores yet — log in and play to save one.
+            no scores yet.
           </p>
         ) : (
           <div className="space-y-1">

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { GameState } from '@/domain/types';
 import { IMAGES_PER_SESSION, MAX_REVEALS, imageUrl } from '@/config/game.config';
 
@@ -10,8 +9,6 @@ interface ResultOverlayProps {
   onNext: () => void;
   onRestart: () => void;
   currentAnswer: string;
-  isLoggedIn: boolean;
-  saved: boolean;
 }
 
 function scoreToEmoji(score: number): string {
@@ -33,7 +30,7 @@ const primaryBtn =
 const ghostBtn =
   'w-full h-11 rounded-md border border-outline-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider hover:border-primary hover:text-primary transition-colors';
 
-export function ResultOverlay({ state, onNext, onRestart, currentAnswer, isLoggedIn, saved }: ResultOverlayProps) {
+export function ResultOverlay({ state, onNext, onRestart, currentAnswer }: ResultOverlayProps) {
   const [copied, setCopied] = useState(false);
   const isLast = state.currentImageIndex + 1 >= IMAGES_PER_SESSION;
 
@@ -97,12 +94,6 @@ export function ResultOverlay({ state, onNext, onRestart, currentAnswer, isLogge
               </div>
             ))}
           </div>
-
-          <p className="font-label-sm text-label-sm text-outline">
-            {isLoggedIn
-              ? saved ? 'saved to leaderboard' : 'saving…'
-              : <><Link href="/login" className="text-primary hover:opacity-80">log in</Link> to save your result</>}
-          </p>
 
           <div className="space-y-2">
             <button onClick={onRestart} className={primaryBtn}>play again</button>
