@@ -1,6 +1,6 @@
 import { GAME_CONFIG } from '@/config/game.config';
 import { GameState, GameAction } from './types';
-import { getLevelForReveals, isCorrectGuess, scoreForImage } from './gameRules';
+import { getHints, getLevelForReveals, isCorrectGuess, scoreForImage } from './gameRules';
 
 const { maxReveals, maxLevel, imagesPerSession } = GAME_CONFIG;
 
@@ -14,7 +14,7 @@ export const initialGameState: GameState = {
   maxStreak: 0,
   totalGuesses: 0,
   correctGuesses: 0,
-  hintUsed: false,
+  hintsUsed: 0,
   guessHistory: [],
   images: [],
   results: [],
@@ -99,29 +99,33 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case 'USE_HINT': {
-      if (state.phase !== 'playing' || state.hintUsed) return state;
+      if (state.phase !== 'playing') return state;
+
+      const currentImage = state.images[state.currentImageIndex];
+      if (!currentImage) return state;
+
+      // No hints left to reveal for this image.
+      if (state.hintsUsed >= getHints(currentImage).length) return state;
 
       const nextReveals = state.revealsUsed + 1;
       if (nextReveals >= maxReveals) {
-        const currentImage = state.images[state.currentImageIndex];
         return {
           ...state,
           phase: 'gameover',
           revealsUsed: maxReveals,
           currentLevel: maxLevel,
           streak: 0,
-          results: currentImage
-            ? [
-                ...state.results,
-                { image: currentImage, score: maxReveals, revealsUsed: maxReveals },
-              ]
-            : state.results,
+          hintsUsed: state.hintsUsed + 1,
+          results: [
+            ...state.results,
+            { image: currentImage, score: maxReveals, revealsUsed: maxReveals },
+          ],
         };
       }
 
       return {
         ...state,
-        hintUsed: true,
+        hintsUsed: state.hintsUsed + 1,
         revealsUsed: nextReveals,
         currentLevel: getLevelForReveals(nextReveals),
       };
@@ -157,7 +161,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         currentImageIndex: nextIndex,
         currentLevel: 1,
         revealsUsed: 0,
-        hintUsed: false,
+        hintsUsed: 0,
       };
     }
 

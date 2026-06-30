@@ -33,7 +33,7 @@ export interface GameState {
   maxStreak: number;
   totalGuesses: number;
   correctGuesses: number;
-  hintUsed: boolean;
+  hintsUsed: number;
   guessHistory: string[];
   images: ImageData[];
   results: ImageResult[];
