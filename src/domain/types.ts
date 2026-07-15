@@ -35,6 +35,8 @@ export interface GameState {
   correctGuesses: number;
   hintsUsed: number;
   guessHistory: string[];
+  /** Closest accepted answer when the last wrong guess was a near-miss (likely typo). */
+  lastCloseMatch: string | null;
   images: ImageData[];
   results: ImageResult[];
   weekId: string;

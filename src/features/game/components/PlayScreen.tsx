@@ -73,6 +73,13 @@ export function PlayScreen({ state, shakeInput, onGuess, onUseHint, onSkip }: Pl
       </div>
 
       <GuessInput onGuess={onGuess} disabled={state.phase !== 'playing'} shake={shakeInput} />
+
+      {state.lastCloseMatch && (state.phase === 'playing' || state.phase === 'wrong') && (
+        <p className="font-label-sm text-label-sm text-amber text-center">
+          close — just a small spelling mistake. did you mean{' '}
+          <span className="text-on-surface-variant">“{state.lastCloseMatch}”</span>?
+        </p>
+      )}
     </div>
   );
 }

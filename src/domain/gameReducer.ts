@@ -1,6 +1,6 @@
 import { GAME_CONFIG } from '@/config/game.config';
 import { GameState, GameAction } from './types';
-import { getHints, getLevelForReveals, isCorrectGuess, scoreForImage } from './gameRules';
+import { getHints, getLevelForReveals, isCorrectGuess, findCloseMatch, scoreForImage } from './gameRules';
 
 const { maxReveals, maxLevel, imagesPerSession } = GAME_CONFIG;
 
@@ -16,6 +16,7 @@ export const initialGameState: GameState = {
   correctGuesses: 0,
   hintsUsed: 0,
   guessHistory: [],
+  lastCloseMatch: null,
   images: [],
   results: [],
   weekId: '',
@@ -57,6 +58,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           totalGuesses: state.totalGuesses + 1,
           correctGuesses: state.correctGuesses + 1,
           guessHistory: [...state.guessHistory, action.answer],
+          lastCloseMatch: null,
           results: [
             ...state.results,
             { image: currentImage, score, revealsUsed: state.revealsUsed },
@@ -64,6 +66,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         };
       }
 
+      const closeMatch = findCloseMatch(currentImage, action.answer);
       const nextReveals = state.revealsUsed + 1;
       if (nextReveals >= maxReveals) {
         return {
@@ -74,6 +77,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           streak: 0,
           totalGuesses: state.totalGuesses + 1,
           guessHistory: [...state.guessHistory, action.answer],
+          lastCloseMatch: closeMatch,
           results: [
             ...state.results,
             { image: currentImage, score: maxReveals, revealsUsed: maxReveals },
@@ -88,6 +92,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         currentLevel: getLevelForReveals(nextReveals),
         totalGuesses: state.totalGuesses + 1,
         guessHistory: [...state.guessHistory, action.answer],
+        lastCloseMatch: closeMatch,
       };
     }
 
@@ -143,6 +148,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         revealsUsed: maxReveals,
         currentLevel: maxLevel,
         streak: 0,
+        lastCloseMatch: null,
         results: [
           ...state.results,
           { image: currentImage, score: maxReveals, revealsUsed: maxReveals },
@@ -162,6 +168,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         currentLevel: 1,
         revealsUsed: 0,
         hintsUsed: 0,
+        lastCloseMatch: null,
       };
     }
 
