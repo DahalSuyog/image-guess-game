@@ -4,6 +4,7 @@ import { ProviderImagesRepository } from './images/providerImagesRepository';
 import { PokemonProvider } from './images/providers/pokemonProvider';
 import { LandmarksProvider } from './images/providers/landmarksProvider';
 import { FlagsProvider } from './images/providers/flagsProvider';
+import { NarutoProvider } from './images/providers/narutoProvider';
 import { LocalLeaderboardRepository } from './repositories/localLeaderboardRepository';
 import { LocalProfileRepository } from './repositories/localProfileRepository';
 
@@ -16,7 +17,7 @@ function createRepositories(): Repositories {
   return {
     images: new ProviderImagesRepository(
       // Order here = order in the picker. Landmarks (local) is the default.
-      [new LandmarksProvider(), new PokemonProvider(), new FlagsProvider()],
+      [new LandmarksProvider(), new PokemonProvider(), new FlagsProvider(), new NarutoProvider()],
       DEFAULT_CATEGORY
     ),
     leaderboard: new LocalLeaderboardRepository(),

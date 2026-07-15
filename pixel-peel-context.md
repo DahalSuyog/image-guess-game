@@ -1,4 +1,3 @@
-# Pixel Peel — Complete Game Context & Technical Specification
 > This document is the single source of truth for building Pixel Peel.
 > Do not make assumptions. If something is not listed here, ask before implementing.
 

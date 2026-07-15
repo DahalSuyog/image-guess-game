@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { track } from '@vercel/analytics';
 import { repos } from '@/data';
 import { DEFAULT_CATEGORY, GAME_CONFIG } from '@/config/game.config';
 import { useGame } from './useGame';
@@ -53,7 +52,6 @@ export function useGameSession() {
   const selectCategory = useCallback(
     (key: string) => {
       if (key === categoryRef.current) return;
-      track('category_select', { category: key });
       categoryRef.current = key;
       setCategoryState(key);
       begin();
@@ -72,17 +70,10 @@ export function useGameSession() {
     return () => clearTimeout(timer);
   }, [state.phase, revealMore]);
 
-  // Session complete: report the result to analytics once.
+  // Session complete.
   useEffect(() => {
     if (state.phase !== 'complete' || trackedRef.current) return;
     trackedRef.current = true;
-    track('game_complete', {
-      category: categoryRef.current,
-      score: state.score,
-      correctGuesses: state.correctGuesses,
-      totalGuesses: state.totalGuesses,
-      maxStreak: state.maxStreak,
-    });
   }, [
     state.phase,
     state.score,
@@ -95,11 +86,10 @@ export function useGameSession() {
     begin();
   }, [begin]);
 
-  // Give up on the current image: report it, then skip.
+  // Give up on the current image, then skip.
   const giveUp = useCallback(() => {
-    track('give_up', { category: categoryRef.current, revealsUsed: state.revealsUsed });
     skip();
-  }, [skip, state.revealsUsed]);
+  }, [skip]);
 
   return {
     state,

@@ -46,5 +46,257 @@
     "name": "Sydney Opera House",
     "imageUrl": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=600&q=80",
     "location": "Sydney, Australia"
+  },
+  {
+    "id": "big-ben",
+    "name": "Big Ben",
+    "imageUrl": "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=600&q=80",
+    "location": "London, UK"
+  },
+  {
+    "id": "tower-bridge",
+    "name": "Tower Bridge",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Tower_Bridge%2C_London%2C_United_Kingdom_%28Unsplash%29.jpg/960px-Tower_Bridge%2C_London%2C_United_Kingdom_%28Unsplash%29.jpg",
+    "location": "London, UK"
+  },
+  {
+    "id": "stonehenge",
+    "name": "Stonehenge",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_30.jpg/960px-Stonehenge2007_07_30.jpg",
+    "location": "Wiltshire, UK"
+  },
+  {
+    "id": "westminster-abbey",
+    "name": "Westminster Abbey",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Westminster_Abbey%2C_Deans_Yd%2C_United_Kingdom_%28Unsplash%29.jpg/960px-Westminster_Abbey%2C_Deans_Yd%2C_United_Kingdom_%28Unsplash%29.jpg",
+    "location": "London, UK"
+  },
+  {
+    "id": "edinburgh-castle",
+    "name": "Edinburgh Castle",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/City_of_Edinburgh_-_Edinburgh_Castle_-_20140421004403.jpg/960px-City_of_Edinburgh_-_Edinburgh_Castle_-_20140421004403.jpg",
+    "location": "Edinburgh, UK"
+  },
+  {
+    "id": "christ-the-redeemer",
+    "name": "Christ the Redeemer",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg/960px-Christ_the_Redeemer_-_Cristo_Redentor.jpg",
+    "location": "Rio de Janeiro, Brazil"
+  },
+  {
+    "id": "petra",
+    "name": "Petra",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Petra%2C_Jordan_%28Unsplash%29.jpg/960px-Petra%2C_Jordan_%28Unsplash%29.jpg",
+    "location": "Ma'an, Jordan"
+  },
+  {
+    "id": "burj-khalifa",
+    "name": "Burj Khalifa",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Burj_Khalifa%2C_Dubai%2C_United_Arab_Emirates_%28Unsplash_FUWG3qZjQbI%29.jpg/960px-Burj_Khalifa%2C_Dubai%2C_United_Arab_Emirates_%28Unsplash_FUWG3qZjQbI%29.jpg",
+    "location": "Dubai, UAE"
+  },
+  {
+    "id": "burj-al-arab",
+    "name": "Burj Al Arab",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Dubai_coastline_%28Unsplash_aEiu9nilN_c%29.jpg/960px-Dubai_coastline_%28Unsplash_aEiu9nilN_c%29.jpg",
+    "location": "Dubai, UAE"
+  },
+  {
+    "id": "sheikh-zayed-grand-mosque",
+    "name": "Sheikh Zayed Grand Mosque",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/7/7d/Sheikh_Zayed_Mosque_view.jpg",
+    "location": "Abu Dhabi, UAE"
+  },
+  {
+    "id": "mount-rushmore",
+    "name": "Mount Rushmore",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mount_Rushmore%2C_United_States_%28Unsplash%29.jpg/960px-Mount_Rushmore%2C_United_States_%28Unsplash%29.jpg",
+    "location": "South Dakota, USA"
+  },
+  {
+    "id": "golden-gate-bridge",
+    "name": "Golden Gate Bridge",
+    "imageUrl": "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80",
+    "location": "San Francisco, USA"
+  },
+  {
+    "id": "grand-canyon",
+    "name": "Grand Canyon",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Colorful_Grand_Canyon_%28Unsplash%29.jpg/960px-Colorful_Grand_Canyon_%28Unsplash%29.jpg",
+    "location": "Arizona, USA"
+  },
+  {
+    "id": "niagara-falls",
+    "name": "Niagara Falls",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Niagara_Falls_%28Unsplash%29.jpg/960px-Niagara_Falls_%28Unsplash%29.jpg",
+    "location": "Ontario, Canada"
+  },
+  {
+    "id": "hollywood-sign",
+    "name": "Hollywood Sign",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/White_sunset_next_to_Hollywood_sign_%28Unsplash%29.jpg/960px-White_sunset_next_to_Hollywood_sign_%28Unsplash%29.jpg",
+    "location": "Los Angeles, USA"
+  },
+  {
+    "id": "cn-tower",
+    "name": "CN Tower",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/CN_Tower%2C_Toronto%2C_Canada_%28Unsplash_DJ_kOgH5u0o%29.jpg/960px-CN_Tower%2C_Toronto%2C_Canada_%28Unsplash_DJ_kOgH5u0o%29.jpg",
+    "location": "Toronto, Canada"
+  },
+  {
+    "id": "chichen-itza",
+    "name": "Chichen Itza",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/960px-Chichen_Itza_3.jpg",
+    "location": "Yucatan, Mexico"
+  },
+  {
+    "id": "moscow-kremlin",
+    "name": "Moscow Kremlin",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Moscow_Kremlin_%288281675670%29.jpg/960px-Moscow_Kremlin_%288281675670%29.jpg",
+    "location": "Moscow, Russia"
+  },
+  {
+    "id": "st-basils-cathedral",
+    "name": "St. Basil's Cathedral",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Saint_Basil%27s_Cathedral_in_Moscow.jpg/960px-Saint_Basil%27s_Cathedral_in_Moscow.jpg",
+    "location": "Moscow, Russia"
+  },
+  {
+    "id": "sagrada-familia",
+    "name": "Sagrada Familia",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/La_Sagrada_Familia_%28Unsplash%29.jpg/960px-La_Sagrada_Familia_%28Unsplash%29.jpg",
+    "location": "Barcelona, Spain"
+  },
+  {
+    "id": "leaning-tower-pisa",
+    "name": "Leaning Tower of Pisa",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Torre_di_Pisa%2C_pisa%2C_italy_%28Unsplash%29.jpg/960px-Torre_di_Pisa%2C_pisa%2C_italy_%28Unsplash%29.jpg",
+    "location": "Pisa, Italy"
+  },
+  {
+    "id": "acropolis-athens",
+    "name": "Acropolis of Athens",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg/960px-1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg",
+    "location": "Athens, Greece"
+  },
+  {
+    "id": "santorini",
+    "name": "Santorini",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Santorini%2C_Greece_%28Unsplash_OSzlbMcf9Hg%29.jpg/960px-Santorini%2C_Greece_%28Unsplash_OSzlbMcf9Hg%29.jpg",
+    "location": "Cyclades, Greece"
+  },
+  {
+    "id": "mount-fuji",
+    "name": "Mount Fuji",
+    "imageUrl": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80",
+    "location": "Honshu, Japan"
+  },
+  {
+    "id": "tokyo-tower",
+    "name": "Tokyo Tower",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Shiba-koen%2C_aerial_view_on_Tokyo_Tower_at_dusk_%28Unsplash%29.jpg/960px-Shiba-koen%2C_aerial_view_on_Tokyo_Tower_at_dusk_%28Unsplash%29.jpg",
+    "location": "Tokyo, Japan"
+  },
+  {
+    "id": "angkor-wat",
+    "name": "Angkor Wat",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Angkor_Wat%2C_Krong_Siem_Reap%2C_Cambodia_%28Unsplash%29.jpg/960px-Angkor_Wat%2C_Krong_Siem_Reap%2C_Cambodia_%28Unsplash%29.jpg",
+    "location": "Siem Reap, Cambodia"
+  },
+  {
+    "id": "marina-bay-sands",
+    "name": "Marina Bay Sands",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Marina_Bay_Sands_%28Unsplash%29.jpg/960px-Marina_Bay_Sands_%28Unsplash%29.jpg",
+    "location": "Singapore"
+  },
+  {
+    "id": "petronas-twin-towers",
+    "name": "Petronas Twin Towers",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Petronas_Twin_Towers%2C_Kuala_Lumpur%2C_Malaysia_%28Unsplash%29.jpg/960px-Petronas_Twin_Towers%2C_Kuala_Lumpur%2C_Malaysia_%28Unsplash%29.jpg",
+    "location": "Kuala Lumpur, Malaysia"
+  },
+  {
+    "id": "hawa-mahal",
+    "name": "Hawa Mahal",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg/960px-East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg",
+    "location": "Jaipur, India"
+  },
+  {
+    "id": "neuschwanstein-castle",
+    "name": "Neuschwanstein Castle",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Palace_Neuschwanstein_%28Unsplash%29.jpg/960px-Palace_Neuschwanstein_%28Unsplash%29.jpg",
+    "location": "Bavaria, Germany"
+  },
+  {
+    "id": "cologne-cathedral",
+    "name": "Cologne Cathedral",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Cathedral_facade_%28Unsplash%29.jpg/960px-Cathedral_facade_%28Unsplash%29.jpg",
+    "location": "Cologne, Germany"
+  },
+  {
+    "id": "louvre-museum",
+    "name": "Louvre Museum",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Louvre_Pyramid_at_night_from_the_northwest_%28Unsplash%29.jpg/960px-Louvre_Pyramid_at_night_from_the_northwest_%28Unsplash%29.jpg",
+    "location": "Paris, France"
+  },
+  {
+    "id": "mont-saint-michel",
+    "name": "Mont Saint-Michel",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Mont_Saint-Michel%2C_Le_Mont-Saint-Michel%2C_France_%28Unsplash%29.jpg/960px-Mont_Saint-Michel%2C_Le_Mont-Saint-Michel%2C_France_%28Unsplash%29.jpg",
+    "location": "Normandy, France"
+  },
+  {
+    "id": "mount-everest",
+    "name": "Mount Everest",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mt_Everest_%28Unsplash%29.jpg/960px-Mt_Everest_%28Unsplash%29.jpg",
+    "location": "Himalayas, Nepal"
+  },
+  {
+    "id": "victoria-falls",
+    "name": "Victoria Falls",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_04.jpg/960px-Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_04.jpg",
+    "location": "Zambia/Zimbabwe"
+  },
+  {
+    "id": "table-mountain",
+    "name": "Table Mountain",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Table_Mountain_%28Unsplash%29.jpg/960px-Table_Mountain_%28Unsplash%29.jpg",
+    "location": "Cape Town, South Africa"
+  },
+  {
+    "id": "hagia-sophia",
+    "name": "Hagia Sophia",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Hagia_Sophia_Istanbul_Old_City%2C_Turkey_%28Unsplash%29.jpg/960px-Hagia_Sophia_Istanbul_Old_City%2C_Turkey_%28Unsplash%29.jpg",
+    "location": "Istanbul, Turkey"
+  },
+  {
+    "id": "blue-mosque",
+    "name": "Blue Mosque",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Istanbul_%2834223582516%29_%28cropped%29.jpg/960px-Istanbul_%2834223582516%29_%28cropped%29.jpg",
+    "location": "Istanbul, Turkey"
+  },
+  {
+    "id": "western-wall",
+    "name": "Western Wall",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Westernwall2.jpg/960px-Westernwall2.jpg",
+    "location": "Jerusalem, Israel"
+  },
+  {
+    "id": "sydney-harbour-bridge",
+    "name": "Sydney Harbour Bridge",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sydney_Harbour_Bridge%2C_Sydney%2C_Australia_%28Unsplash%29.jpg/960px-Sydney_Harbour_Bridge%2C_Sydney%2C_Australia_%28Unsplash%29.jpg",
+    "location": "Sydney, Australia"
+  },
+  {
+    "id": "uluru",
+    "name": "Uluru",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Moon_Stars_Twilight_Uluru_%28Unsplash%29.jpg/960px-Moon_Stars_Twilight_Uluru_%28Unsplash%29.jpg",
+    "location": "Northern Territory, Australia"
+  },
+  {
+    "id": "potala-palace",
+    "name": "Potala Palace",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Potala_Palace_HQ.jpg/960px-Potala_Palace_HQ.jpg",
+    "location": "Lhasa, China"
   }
 ]
